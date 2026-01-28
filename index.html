@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlateTracker | Project Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #e8e8e8;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e63946 0%, #ff6b6b 50%, #ffd93d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+        
+        .project-card.sachse::before {
+            background: linear-gradient(90deg, #e63946, #ff6b6b);
+        }
+        
+        .project-card.sanger::before {
+            background: linear-gradient(90deg, #6c63ff, #a8a0ff);
+        }
+        
+        .project-card.roanoke::before {
+            background: linear-gradient(90deg, #4ecdc4, #a8e6cf);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .project-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .project-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .project-location {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        
+        .project-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .badge.bidding {
+            background: rgba(255, 217, 61, 0.2);
+            color: #ffd93d;
+        }
+        
+        .badge.design {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+        
+        .badge.civil {
+            background: rgba(108, 99, 255, 0.2);
+            color: #a8a0ff;
+        }
+        
+        .badge.active {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+        
+        .badge.warning {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .project-arrow {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            font-size: 20px;
+            color: #444;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-arrow {
+            color: #fff;
+            transform: translateX(5px);
+        }
+        
+        .coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .coming-soon .project-name::after {
+            content: ' (Coming Soon)';
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SlateTracker</div>
+            <div class="tagline">Real Estate Development Project Dashboard</div>
+            
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Active Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">$8.5M</div>
+                    <div class="stat-label">Total Budget</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">29K</div>
+                    <div class="stat-label">Total SF</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Sachse -->
+            <a href="sachse.html" class="project-card sachse">
+                <div class="project-icon">🏪</div>
+                <div class="project-name">Sachse Neighborhood Shops</div>
+                <div class="project-location">📍 Sachse, Texas</div>
+                <div class="project-badges">
+                    <span class="badge bidding">GC Bidding</span>
+                    <span class="badge design">Design</span>
+                    <span class="badge warning">52-Wk Lead</span>
+                </div>
+                <div class="project-meta">
+                    <span>2 Buildings • 20,031 SF</span>
+                    <span>HBA Low: $4.1M</span>
+                </div>
+                <div class="project-arrow">→</div>
+            </a>
+            
+            <!-- Sanger -->
+            <a href="sanger.html" class="project-card sanger">
+                <div class="project-icon">🏗️</div>
+                <div class="project-name">Sanger Town Center South</div>
+                <div class="project-location">📍 Sanger, Texas</div>
+                <div class="project-badges">
+                    <span class="badge civil">Civil</span>
+                    <span class="badge bidding">Final Submittal</span>
+                </div>
+                <div class="project-meta">
+                    <span>Site Development</span>
+                    <span>KJE Engineering</span>
+                </div>
+                <div class="project-arrow">→</div>
+            </a>
+            
+            <!-- Roanoke -->
+            <a href="roanoke.html" class="project-card roanoke coming-soon">
+                <div class="project-icon">🛒</div>
+                <div class="project-name">Roanoke Neighborhood Shops</div>
+                <div class="project-location">📍 Roanoke, Texas</div>
+                <div class="project-badges">
+                    <span class="badge active">Active</span>
+                </div>
+                <div class="project-meta">
+                    <span>4 Tenants • 8,140 SF</span>
+                    <span>81.3% Occupied</span>
+                </div>
+                <div class="project-arrow">→</div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-logo">Slate Commercial</div>
+            <div class="footer-text">Last updated: January 28, 2026</div>
+        </div>
+    </div>
+</body>
+</html>
