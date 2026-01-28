@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanger Town Center South - Project Journal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #e8e8e8;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0f3460 0%, #533483 100%);
+            border-radius: 16px;
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            color: #a8d8ff;
+            font-weight: 500;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #ffd93d;
+            color: #1a1a2e;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6c63ff;
+        }
+        
+        .section.pending {
+            border-left-color: #ffd93d;
+        }
+        
+        .section.action {
+            border-left-color: #ff6b6b;
+        }
+        
+        .section.contacts {
+            border-left-color: #4ecdc4;
+        }
+        
+        .section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #6c63ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section.pending h2 {
+            color: #ffd93d;
+        }
+        
+        .section.action h2 {
+            color: #ff6b6b;
+        }
+        
+        .section.contacts h2 {
+            color: #4ecdc4;
+        }
+        
+        .timeline {
+            margin-top: 10px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #6c63ff;
+            min-width: 80px;
+            font-weight: 500;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-desc {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+        
+        .status-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-tag.pending {
+            background: rgba(255,217,61,0.2);
+            color: #ffd93d;
+        }
+        
+        .status-tag.waiting {
+            background: rgba(255,107,107,0.2);
+            color: #ff6b6b;
+        }
+        
+        .status-tag.done {
+            background: rgba(78,205,196,0.2);
+            color: #4ecdc4;
+        }
+        
+        .open-items {
+            list-style: none;
+        }
+        
+        .open-items li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .open-items li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #ffd93d;
+            font-weight: bold;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .contact-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .contact-card .org {
+            font-size: 11px;
+            color: #4ecdc4;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .contact-card .names {
+            font-size: 14px;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+        
+        .updated {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 30px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Sanger Town Center South</h1>
+            <div class="subtitle">Project Journal • Civil/Site Development</div>
+            <div class="status-badge">⏳ FINAL SUBMITTAL PHASE</div>
+        </div>
+        
+        <div class="section">
+            <h2>📅 Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 27</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Maria drafted email to City <span class="status-tag pending">Pending Send</span></div>
+                        <div class="timeline-desc">Email to Ramie (City) and Leigh Hollis (Halff) regarding rainfall intensity values from Ordinance 10.106(d)(2)(D)(i)</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 28</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Kevin instructed Maria to send email <span class="status-tag waiting">Awaiting Confirmation</span></div>
+                        <div class="timeline-desc">Kevin Ware: "If you have sent the email yet please send it"</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 28</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Joseph requested retaining wall feasibility check <span class="status-tag waiting">Awaiting KJE Response</span></div>
+                        <div class="timeline-desc">Can retaining wall along outfall channel be graded out of design? If not → engage Falkofske (Aaron Berkes) ASAP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section pending">
+            <h2>⚡ Open Items</h2>
+            <ul class="open-items">
+                <li><strong>Confirm email sent</strong> — Rainfall intensity email to Ramie (City) and Leigh Hollis (Halff)</li>
+                <li><strong>KJE response needed</strong> — Can retaining wall be graded out of design?</li>
+                <li><strong>If wall required</strong> — Engage Aaron Berkes at Falkofske for structural design</li>
+                <li><strong>City approval strategy</strong> — Can plans be approved without retaining wall design? (Joseph wants to keep project moving)</li>
+            </ul>
+        </div>
+        
+        <div class="section action">
+            <h2>🎯 Key Decisions Pending</h2>
+            <ul class="open-items">
+                <li><strong>Rainfall Intensities</strong> — Awaiting City confirmation that interpolated values are acceptable:
+                    <br><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #888; margin-top: 8px; display: block;">
+                    2yr: 5.20 | 5yr: 6.75 | 10yr: 7.80 | 25yr: 9.20 | 50yr: 10.10 | 100yr: 10.20
+                    </span>
+                </li>
+                <li><strong>Retaining Wall</strong> — Grade out or design? Decision impacts timeline and lot buyer progress</li>
+            </ul>
+        </div>
+        
+        <div class="section contacts">
+            <h2>👥 Key Contacts</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="org">KJE Engineering</div>
+                    <div class="names">
+                        Kevin Ware (CEO)<br>
+                        Maria Meyer (Graduate Engineer)<br>
+                        Ian Norfolk<br>
+                        Branson Burger
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="org">Masterplan Consulting</div>
+                    <div class="names">
+                        Joseph Okelarin (President)<br>
+                        📞 516-289-4190
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="org">City of Sanger</div>
+                    <div class="names">
+                        Ramie
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="org">Halff Associates</div>
+                    <div class="names">
+                        Leigh Hollis
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="org">Falkofske (Structural)</div>
+                    <div class="names">
+                        Aaron Berkes
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="updated">Last updated: January 28, 2026</div>
+    </div>
+</body>
+</html>
